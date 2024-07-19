@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-300 lg:w-60 w-full mt-2 ml-0 lg:ml-2 lg:mt-0 h-16 text-white rounded-xl flex items-center justify-center;
+  }
+  .btn-outline {
+    @apply lg:w-60 w-full md:w-40 flex p-4 items-center justify-center h-14 border rounded-xl border-primary-300 font-bold cursor-pointer
+  }
+}
+
+.words {
+  display: inline;
+  text-indent: 10px;
+}
+.words span {
+  position: absolute;
+  opacity: 0;
+  overflow: hidden;
+  animation: rotateWords 6s linear infinite 0s;
+}
+.words span:nth-child(2) {
+  animation-delay: 2s;
+}
+.words span:nth-child(3) {
+  animation-delay: 4s;
+}
+
+@keyframes rotateWords {
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-in;
+    height: 0px;
+  }
+  10% {
+    opacity: 1;
+    height: 60px;
+  }
+  20% {
+    opacity: 1;
+    height: 60px;
+  }
+  30% {
+    opacity: 0;
+    height: 60px;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* Chiều rộng của thanh cuộn */
+  height: 10px; /* Chiều cảo của thanh cuộn */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1; /* Màu nền của đường ray thanh cuộn */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #bdbdbd; /* Màu nền của nút kéo thanh cuộn */
+  border-radius: 6px; /* Bo góc của nút kéo */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa; /* Màu nền của nút kéo khi hover */
+}

@@ -34,15 +34,15 @@ export default async function RootLayout({
       <NextIntlClientProvider messages={messages}>
         <Providers>
           <main>
-            <NavBar />
-            <div className="mt-[82px] flex flex-col mx-4 md:mx-[50px] gap-[50px] md:gap-[160px] lg:mx-[150px]">
+            {/* <NavBar /> */}
+            <div className=" flex flex-col mx-4 md:mx-[50px] gap-[50px] md:gap-[160px] lg:mx-[150px]">
               {children}
             </div>
-            <FooterSection />
+            {/* <FooterSection /> */}
           </main>
         </Providers>
         </NextIntlClientProvider>
-        <script src="//code.tidio.co/xgyi2qd1nggw3p5ua7njiojcvhlyn51k.js" async></script>
+      {/*   <script src="//code.tidio.co/xgyi2qd1nggw3p5ua7njiojcvhlyn51k.js" async></script> */}
       </body>
       <GoogleAnalytics gaId="G-RWTRF36D3N" />
       <GoogleTagManager gtmId="GTM-WL4JZPQH" />

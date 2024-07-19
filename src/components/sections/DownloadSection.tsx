@@ -4,10 +4,8 @@ import { Typewriter } from "nextjs-simple-typewriter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSocialJob, PostSocialJob } from "@/service/api";
 import { useSocialAutoLink } from "@/context/SocialAutoLinkContext";
-import FullScreenLoading from "../common/Loading";
 import { Input } from "antd";
 import Tooltip from "../common/Tooltip";
-import { PiAsterisk } from "react-icons/pi";
 import { FaRegPaste } from "react-icons/fa6";
 import { isValidUrl, secretKey } from "@/lib/utils";
 import CryptoJS from "crypto-js";
@@ -15,6 +13,7 @@ import { toast } from "sonner";
 import { ImSpinner9 } from "react-icons/im";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/navigation";
+import { HiDotsHorizontal } from "react-icons/hi";
 function DownloadSection() {
   const [urlInput, setUrlInput] = useState("");
   const router = useRouter();
@@ -22,7 +21,7 @@ function DownloadSection() {
   const t = useTranslations();
   const [jobId, setJobId] = useState("");
   const [enabled, setEnabled] = useState(false);
-  console.log("🚀 ~ DownloadSection ~ enabled:", enabled)
+  console.log("🚀 ~ DownloadSection ~ enabled:", enabled);
 
   const {
     data: dataMedia,
@@ -153,24 +152,20 @@ function DownloadSection() {
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <p className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
-            {t("downloadPhotosVideos")}
-            <span className="text-secondary-300 block w-full md:inline-block md:w-12 ml-2 text-center">
-              <Typewriter
-                words={[
-                  "Tiktok",
-                  "Instagram",
-                  "Facebook",
-                  "LinkedIn",
-                  "Twitter",
-                ]}
-                loop={0} // 0 hoặc false để lặp vô hạn
-                cursor
-                cursorStyle="_"
-                typeSpeed={70}
-                deleteSpeed={70}
-                delaySpeed={1000}
-              />
-            </span>
+            <div className="grid grid-cols-5">
+              <img src="/images/icons8-facebook.svg" alt="" />
+              <img src="/images/icons8-instagram.svg" alt="" />
+              <img src="/images/icons8-tiktok.svg" alt="" />
+              <img src="/images/icons8-linkedin.svg" alt="" />
+              <img src="/images/icons8-spotify.svg" alt="" />
+              <img src="/images/icons8-twitterx.svg" alt="" />
+              <img src="/images/icons8-telegram.svg" alt="" />
+              <img src="/images/icons8-pinterest.svg" alt="" />
+              <img src="/images/icons8-bilibili.svg" alt="" />
+              <div className="flex justify-center items-center">
+                <button className="btn-primary text-sm h-8 bg-red-500">See more</button>
+              </div>
+            </div>
           </p>
           <p className="description">{t("pasteUrlToDownload")}</p>
 
@@ -227,9 +222,6 @@ function DownloadSection() {
                 </a>
               </div> */}
             </div>
-          </div>
-          <div className="">
-            <p>{t("noWatermarksRegistration")}</p>
           </div>
         </div>
       </section>

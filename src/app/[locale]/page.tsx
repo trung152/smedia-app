@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <div>
       <DownloadSection />
-      <SupportedSocialSection />
-      <FAQCollapse />
+      {/* <SupportedSocialSection />
+      <FAQCollapse /> */}
     </div>
   );
 }

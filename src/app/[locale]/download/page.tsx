@@ -114,12 +114,12 @@ function page() {
   });
 
   console.log("🚀 ~ hasVideo ~ hasVideo:", hasVideo);
-  const handleDownload = (url: string, filename: string) => {
+  const handleDownload = (url: string, filename: string, type: string) => {
     const newUrl = url;
 
     if (window?.flutter_inappwebview) {
       window.flutter_inappwebview
-        .callHandler("onDownload", newUrl, filename)
+        .callHandler("onDownload", newUrl, filename, type)
         .then(function (response: any) {
           // console.log("Phản hồi từ Flutter: " + response);
           // toast.success();
@@ -205,7 +205,7 @@ function page() {
                 onClick={() =>
                   handleDownload(
                     media.url,
-                    `media-${new Date().getTime()}.${media.extension}`
+                    `media-${new Date().getTime()}.${media.extension}`, media.type
                   )
                 }
               >
@@ -257,7 +257,7 @@ function page() {
                     onClick={() =>
                       handleDownload(
                         media.url,
-                        `media-${new Date().getTime()}.${media.extension}`
+                        `media-${new Date().getTime()}.${media.extension}`, media.type
                       )
                     }
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"

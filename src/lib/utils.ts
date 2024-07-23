@@ -46,3 +46,14 @@ export const listLanguages = [
     img: "/vi.svg",
   },
 ];
+
+export const generateFileName = (title: string, quality: string, extension: string): string => {
+  const timestamp = Date.now();
+  const sanitizedTitle = title
+    .replace(/[^\w\s-]/g, '') // Loại bỏ ký tự đặc biệt
+    .trim()
+    .replace(/\s+/g, '_') // Thay khoảng trắng bằng dấu gạch dưới
+    .substring(0, 50); // Giới hạn độ dài tiêu đề
+
+  return `${sanitizedTitle}_${quality}_${timestamp}.${extension}`;
+};

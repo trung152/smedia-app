@@ -9,6 +9,7 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { useTranslations } from "next-intl";
+import { generateFileName } from "@/lib/utils";
 
 function page() {
   const { download } = useDownloader();
@@ -113,31 +114,33 @@ function page() {
     return item?.type === "video";
   });
 
-  console.log("🚀 ~ hasVideo ~ hasVideo:", hasVideo);
-  const handleDownload = (url: string, filename: string, type: string, quality: string) => {
-    const newUrl = url;
-
+  const handleDownload = (item: any) => {
+    const url = item?.url || '';
+    const quality = item?.quality || '';
+    const type = item?.type || '';
+    const filename = generateFileName(mediaData?.title || '', item?.quality || '', item?.extension || '');
+    console.log("🚀 ~ handleDownload ~ filename:", filename)
     if (window?.flutter_inappwebview) {
       window.flutter_inappwebview
-        .callHandler("onDownload", newUrl, filename, type)
+        .callHandler("onDownload", url, filename, type)
         .then(function (response: any) {
           // console.log("Phản hồi từ Flutter: " + response);
           // toast.success();
         });
 
-        if(quality){
-          const checkquality = quality.includes('720') || quality.includes('1080') || quality.includes('hd');
-          if(checkquality && type === 'video'){
-            window.flutter_inappwebview
+      if (quality) {
+        const checkquality = quality.includes('720') || quality.includes('1080') || quality.includes('hd');
+        if (checkquality && type === 'video') {
+          window.flutter_inappwebview
             .callHandler("downVideo", quality)
             .then(function (response: any) {
               console.log("Phân hồi này Flutter: " + response);
               // toast.success();
             });
-          }
         }
+      }
     } else {
-      download(newUrl, filename);
+      download(url, filename);
     }
   };
 
@@ -149,16 +152,14 @@ function page() {
     setOpenModalVideo(false);
   };
 
-  const handleDownloadAllImg = () => {
-    if (!mediaImage) return;
-    mediaImage.forEach((item: any, index: number) => {
-      const nameImg = `${item?.type}_${new Date().getTime()}_${index + 1}.${
-        item?.extension
-      }`;
-      item?.url &&
-        download(`https://api.zm.io.vn/download/?url=${item?.url}`, nameImg);
-    });
-  };
+  // const handleDownloadAllImg = () => {
+  //   if (!mediaImage) return;
+  //   mediaImage.forEach((item: any, index: number) => {
+  //     const nameImg = `${item?.type}_${new Date().getTime()}_${index + 1}.${item?.extension}`;
+  //     item?.url &&
+  //       download(`https://api.zm.io.vn/download/?url=${item?.url}`, nameImg);
+  //   });
+  // };
 
   const getClassNameByType = (item: any) => {
     switch (item?.type) {
@@ -173,7 +174,7 @@ function page() {
   if (!mediaData || mediaData?.error) {
     return <div className="h-screen"></div>;
   }
-  return (  
+  return (
     <div className="pb-8 min-h-screen">
       <div className="lg:flex xl:mx-10">
         <div className="bg-neutral-200 p-4 lg:flex flex-1 gap-4 rounded-lg">
@@ -214,12 +215,7 @@ function page() {
               <button
                 key={index}
                 className={`btn-primary ${getClassNameByType(media)}`}
-                onClick={() =>
-                  handleDownload(
-                    media.url,
-                    `media-${new Date().getTime()}.${media.extension}`, media?.type, media?.quality
-                  )
-                }
+                onClick={() => handleDownload(media)}
               >
                 <MdOutlineFileDownload className="mr-3" /> {media.quality}
               </button>
@@ -267,11 +263,7 @@ function page() {
                   <button
                     key={index}
                     onClick={() =>
-                      handleDownload(
-                        media?.url,
-                        `media-${new Date().getTime()}.${media?.extension}`, media?.type, media?.quality
-                      )
-                    }
+                    handleDownload(media)}
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
                   >
                     <MdOutlineFileDownload />

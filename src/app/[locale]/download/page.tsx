@@ -114,7 +114,7 @@ function page() {
   });
 
   console.log("🚀 ~ hasVideo ~ hasVideo:", hasVideo);
-  const handleDownload = (url: string, filename: string, type: string) => {
+  const handleDownload = (url: string, filename: string, type: string, quality: string) => {
     const newUrl = url;
 
     if (window?.flutter_inappwebview) {
@@ -124,6 +124,18 @@ function page() {
           // console.log("Phản hồi từ Flutter: " + response);
           // toast.success();
         });
+
+        if(quality){
+          const checkquality = quality.includes('720') || quality.includes('1080') || quality.includes('hd');
+          if(checkquality && type === 'video'){
+            window.flutter_inappwebview
+            .callHandler("downVideo", quality)
+            .then(function (response: any) {
+              console.log("Phân hồi này Flutter: " + response);
+              // toast.success();
+            });
+          }
+        }
     } else {
       download(newUrl, filename);
     }
@@ -205,7 +217,7 @@ function page() {
                 onClick={() =>
                   handleDownload(
                     media.url,
-                    `media-${new Date().getTime()}.${media.extension}`, media.type
+                    `media-${new Date().getTime()}.${media.extension}`, media?.type, media?.quality
                   )
                 }
               >
@@ -256,8 +268,8 @@ function page() {
                     key={index}
                     onClick={() =>
                       handleDownload(
-                        media.url,
-                        `media-${new Date().getTime()}.${media.extension}`, media.type
+                        media?.url,
+                        `media-${new Date().getTime()}.${media?.extension}`, media?.type, media?.quality
                       )
                     }
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"

@@ -117,6 +117,63 @@ function DownloadSection() {
         });
     }
   };
+  
+  const handleSeeMoreClick = () => {
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    
+    const modal = document.createElement('div');
+    modal.className = 'modal';
+    
+    const newIcons = [
+      { src: "/images/icons8-vimeo.svg", alt: "Vimeo" },
+      { src: "/images/icons8-reddit.svg", alt: "Reddit" },
+      { src: "/images/icons8-weibo.svg", alt: "Weibo" },
+      { src: "/images/icons8-soundcloud.svg", alt: "SoundCloud" },
+      { src: "/images/icons8-tumblr.svg", alt: "Tumblr" },
+      { src: "/images/icons8-imdb.svg", alt: "IMDB" },
+      { src: "/images/icons8-dailymotion.png", alt: "Dailymotion" },
+      { src: "/images/icons8-facebook.svg", alt: "Facebook" },
+      { src: "/images/icons8-tiktok.svg", alt: "TikTok" },
+      { src: "/images/icons8-instagram.svg", alt: "Instagram" },
+      { src: "/images/icons8-linkedin.svg", alt: "LinkedIn" },
+      { src: "/images/icons8-spotify.svg", alt: "Spotify" },
+      { src: "/images/icons8-twitterx.svg", alt: "Twitter" },
+      { src: "/images/icons8-telegram.svg", alt: "Telegram" },
+      { src: "/images/icons8-pinterest.svg", alt: "Pinterest" },
+      { src: "/images/icons8-bilibili.svg", alt: "Bilibili" }
+    ];
+  
+    newIcons.forEach(icon => {
+      const iconContainer = document.createElement('div');
+      iconContainer.className = 'icon-container';
+  
+      const img = document.createElement('img');
+      img.src = icon.src;
+      img.alt = icon.alt;
+  
+      const label = document.createElement('span');
+      label.textContent = icon.alt;
+      label.className = 'icon-label';
+  
+      iconContainer.appendChild(img);
+      iconContainer.appendChild(label);
+      modal.appendChild(iconContainer);
+    });
+  
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.className = 'close-button';
+    closeButton.onclick = () => {
+      document.body.removeChild(overlay);
+    };
+    modal.appendChild(closeButton);
+  
+    overlay.appendChild(modal);
+    document.body.appendChild(overlay);
+  };
+  
+  
 
   const handleDownloadByLink = () => {
     if (enabled || mutateSocialAutoLink.isPending) {
@@ -148,7 +205,11 @@ function DownloadSection() {
   };
 
   return (
+    
     <div>
+      <style>
+        
+      </style>
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <p className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
@@ -163,7 +224,7 @@ function DownloadSection() {
               <img src="/images/icons8-pinterest.svg" alt="" />
               <img src="/images/icons8-bilibili.svg" alt="" />
               <div className="flex justify-center items-center">
-                <button className="btn-primary text-sm h-8 bg-red-500">See more</button>
+                <button onClick={handleSeeMoreClick} className="btn-primary text-sm h-8 bg-red-500">See more</button>
               </div>
             </div>
           </p>

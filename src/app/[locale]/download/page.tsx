@@ -9,11 +9,13 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { useTranslations } from "next-intl";
-import { generateFileName } from "@/lib/utils";
+import { byteToMb, generateFileName, getFileSize } from "@/lib/utils";
 
 function page() {
   const { download } = useDownloader();
   const [openModalVideo, setOpenModalVideo] = useState(false);
+  const [fileSizes, setFileSizes] = useState<{ [key: string]: number }>({});
+  console.log("🚀 ~ page ~ fileSizes:", fileSizes)
   const { socialAutoLinkData: mediaData } = useSocialAutoLink();
   const t = useTranslations();
   const router = useRouter();
@@ -99,8 +101,16 @@ function page() {
   useEffect(() => {
     if (!mediaData || mediaData?.error) {
       router.push(`/`);
+    }else{
+      mediaData.medias.forEach(async (media: any) => {
+        const size = await getFileSize(`https://api.zm.io.vn/download/?url=${media.url}`);
+        setFileSizes((prevSizes) => ({
+          ...prevSizes,
+          [media.url]: size,
+        }));
+      });
     }
-  }, [mediaData, router]);
+  }, [mediaData]);
 
   const mediaNotImage = mediaData?.medias?.filter((item: any) => {
     return item?.type !== "image";
@@ -119,10 +129,10 @@ function page() {
     const quality = item?.quality || '';
     const type = item?.type || '';
     const filename = generateFileName(mediaData?.title || '', item?.quality || '', item?.extension || '');
-    console.log("🚀 ~ handleDownload ~ filename:", filename)
+    const size = fileSizes[url] || false;
     if (window?.flutter_inappwebview) {
       window.flutter_inappwebview
-        .callHandler("onDownload", url, filename, type)
+        .callHandler("onDownload", url, filename, type, size)
         .then(function (response: any) {
           // console.log("Phản hồi từ Flutter: " + response);
           // toast.success();
@@ -217,7 +227,7 @@ function page() {
                 className={`btn-primary ${getClassNameByType(media)}`}
                 onClick={() => handleDownload(media)}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality}
+                <MdOutlineFileDownload className="mr-3" /> {media.quality} {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
               </button>
             ) : (
               <a
@@ -226,7 +236,7 @@ function page() {
                 download
                 href={`https://api.zm.io.vn/download/?url=${media?.url}`}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality}
+                <MdOutlineFileDownload className="mr-3" /> {media.quality}  {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
               </a>
             )
           )}
@@ -266,7 +276,7 @@ function page() {
                     handleDownload(media)}
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
                   >
-                    <MdOutlineFileDownload />
+                    <MdOutlineFileDownload /> {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
                   </button>
                 ) : (
                   <a
@@ -275,7 +285,7 @@ function page() {
                     download
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
                   >
-                    <MdOutlineFileDownload />
+                    <MdOutlineFileDownload /> {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
                   </a>
                 )}
               </div>

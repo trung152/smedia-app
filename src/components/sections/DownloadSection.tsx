@@ -214,23 +214,21 @@ function DownloadSection() {
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <p className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
             <div className="grid grid-cols-5">
-              <img src="/images/icons8-facebook.svg" alt="" />
-              <img src="/images/icons8-instagram.svg" alt="" />
-              <img src="/images/icons8-tiktok.svg" alt="" />
-              <img src="/images/icons8-linkedin.svg" alt="" />
-              <img src="/images/icons8-spotify.svg" alt="" />
-              <img src="/images/icons8-twitterx.svg" alt="" />
-              <img src="/images/icons8-telegram.svg" alt="" />
-              <img src="/images/icons8-pinterest.svg" alt="" />
-              <img src="/images/icons8-bilibili.svg" alt="" />
+              <img src="/images/icons8-facebook.svg" alt="" className="size-14" />
+              <img src="/images/icons8-instagram.svg" alt="" className="size-14" />
+              <img src="/images/icons8-tiktok.svg" alt="" className="size-14" />
+              <img src="/images/icons8-linkedin.svg" alt="" className="size-14" />
+              <img src="/images/icons8-spotify.svg" alt="" className="size-14" />
+              <img src="/images/icons8-twitterx.svg" alt="" className="size-14" />
+              <img src="/images/icons8-telegram.svg" alt="" className="size-14" />
+              <img src="/images/icons8-pinterest.svg" alt="" className="size-14" />
+              <img src="/images/icons8-bilibili.svg" alt="" className="size-14" />
               <div className="flex justify-center items-center">
                 <button onClick={handleSeeMoreClick} className="btn-primary text-sm h-8 bg-red-500">See more</button>
               </div>
             </div>
           </p>
-          <p className="description">{t("pasteUrlToDownload")}</p>
-
-          <div className="form w-full  m-auto py-10 box-shadow md:w-5/6" id="">
+          <div className="form w-full m-auto box-shadow md:w-5/6" id="">
             <div className="w-5/6 m-auto flex flex-col lg:flex-row">
               <div className="inline-flex flex-col w-full">
                 <Input

@@ -227,7 +227,7 @@ function page() {
                 className={`btn-primary ${getClassNameByType(media)}`}
                 onClick={() => handleDownload(media)}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality} {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
+                <MdOutlineFileDownload className="mr-3" /> {media.quality} {byteToMb(fileSizes[media?.url]) ?? ''}
               </button>
             ) : (
               <a
@@ -236,7 +236,7 @@ function page() {
                 download
                 href={`https://api.zm.io.vn/download/?url=${media?.url}`}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality}  {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
+                <MdOutlineFileDownload className="mr-3" /> {media.quality} {byteToMb(fileSizes[media?.url]) ?? ''}
               </a>
             )
           )}
@@ -276,7 +276,7 @@ function page() {
                     handleDownload(media)}
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
                   >
-                    <MdOutlineFileDownload /> {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
+                    <MdOutlineFileDownload /> {byteToMb(fileSizes[media?.url]) ?? ''}
                   </button>
                 ) : (
                   <a
@@ -285,7 +285,7 @@ function page() {
                     download
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
                   >
-                    <MdOutlineFileDownload /> {fileSizes[media?.url] ? `(${byteToMb(fileSizes[media?.url])}MB)` : ''}
+                    <MdOutlineFileDownload /> {byteToMb(fileSizes[media?.url]) ?? ''}
                   </a>
                 )}
               </div>

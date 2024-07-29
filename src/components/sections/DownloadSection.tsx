@@ -117,14 +117,14 @@ function DownloadSection() {
         });
     }
   };
-  
+
   const handleSeeMoreClick = () => {
-    const overlay = document.createElement('div');
-    overlay.className = 'modal-overlay';
-    
-    const modal = document.createElement('div');
-    modal.className = 'modal';
-    
+    const overlay = document.createElement("div");
+    overlay.className = "modal-overlay";
+
+    const modal = document.createElement("div");
+    modal.className = "modal";
+
     const newIcons = [
       { src: "/images/icons8-vimeo.svg", alt: "Vimeo" },
       { src: "/images/icons8-reddit.svg", alt: "Reddit" },
@@ -141,39 +141,37 @@ function DownloadSection() {
       { src: "/images/icons8-twitterx.svg", alt: "Twitter" },
       { src: "/images/icons8-telegram.svg", alt: "Telegram" },
       { src: "/images/icons8-pinterest.svg", alt: "Pinterest" },
-      { src: "/images/icons8-bilibili.svg", alt: "Bilibili" }
+      { src: "/images/icons8-bilibili.svg", alt: "Bilibili" },
     ];
-  
-    newIcons.forEach(icon => {
-      const iconContainer = document.createElement('div');
-      iconContainer.className = 'icon-container';
-  
-      const img = document.createElement('img');
+
+    newIcons.forEach((icon) => {
+      const iconContainer = document.createElement("div");
+      iconContainer.className = "icon-container";
+
+      const img = document.createElement("img");
       img.src = icon.src;
       img.alt = icon.alt;
-  
-      const label = document.createElement('span');
+
+      const label = document.createElement("span");
       label.textContent = icon.alt;
-      label.className = 'icon-label';
-  
+      label.className = "icon-label";
+
       iconContainer.appendChild(img);
       iconContainer.appendChild(label);
       modal.appendChild(iconContainer);
     });
-  
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.className = 'close-button';
+
+    const closeButton = document.createElement("button");
+    closeButton.textContent = "Close";
+    closeButton.className = "close-button";
     closeButton.onclick = () => {
       document.body.removeChild(overlay);
     };
     modal.appendChild(closeButton);
-  
+
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
   };
-  
-  
 
   const handleDownloadByLink = () => {
     if (enabled || mutateSocialAutoLink.isPending) {
@@ -205,26 +203,96 @@ function DownloadSection() {
   };
 
   return (
-    
     <div>
-      <style>
-        
-      </style>
+      <style></style>
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <p className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
-            <div className="grid grid-cols-5">
-              <img src="/images/icons8-facebook.svg" alt="" className="size-14" />
-              <img src="/images/icons8-instagram.svg" alt="" className="size-14" />
-              <img src="/images/icons8-tiktok.svg" alt="" className="size-14" />
-              <img src="/images/icons8-linkedin.svg" alt="" className="size-14" />
-              <img src="/images/icons8-spotify.svg" alt="" className="size-14" />
-              <img src="/images/icons8-twitterx.svg" alt="" className="size-14" />
-              <img src="/images/icons8-telegram.svg" alt="" className="size-14" />
-              <img src="/images/icons8-pinterest.svg" alt="" className="size-14" />
-              <img src="/images/icons8-bilibili.svg" alt="" className="size-14" />
-              <div className="flex justify-center items-center">
-                <button onClick={handleSeeMoreClick} className="btn-primary text-sm h-8 bg-red-500">See more</button>
+            <div className="grid grid-cols-5 gap-4">
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-facebook.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Facebook</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-instagram.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Instagram</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-tiktok.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">TikTok</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-linkedin.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">LinkedIn</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-spotify.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Spotify</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-twitterx.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Twitter</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-telegram.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Telegram</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-pinterest.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Pinterest</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <img
+                  src="/images/icons8-bilibili.svg"
+                  alt=""
+                  className="size-14"
+                />
+                <span className="text-xs mt-1">Bilibili</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <button
+                  onClick={handleSeeMoreClick}
+                  className="p-0 bg-transparent"
+                >
+                  <img
+                    src="/images/icons8-seemore.svg"
+                    alt="See more"
+                    className="size-14"
+                  />
+                </button>
+                <span className="text-xs mt-1">See more</span>
               </div>
             </div>
           </p>
@@ -240,7 +308,7 @@ function DownloadSection() {
                   className="input h-16 falsefalse border-gray-300 border rounded-xl p-3"
                   id=""
                   onPressEnter={handleDownloadByLink}
-                  placeholder="https://"
+                  placeholder="Paste link here..."
                   min="0"
                   suffix={
                     <Tooltip message={t("paste")}>
@@ -252,11 +320,22 @@ function DownloadSection() {
                   }
                 />
               </div>
-              <button onClick={handleDownloadByLink} className="btn-primary">
+              <button
+                onClick={handleDownloadByLink}
+                className="btn-primary bg-red-500 hover:bg-red-600 flex items-center justify-center space-x-2"
+              >
                 {enabled || mutateSocialAutoLink.isPending ? (
                   <ImSpinner9 className="animate-spin text-white size-8" />
                 ) : (
-                  t("download")
+                  <>
+                    
+                    <span>{t("Download")}</span>
+                    <img
+                      src="/images/icons8-download.svg"
+                      alt="Download"
+                      className="w-5 h-5"
+                    />
+                  </>
                 )}
               </button>
             </div>

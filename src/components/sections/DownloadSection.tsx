@@ -162,7 +162,7 @@ function DownloadSection() {
     });
 
     const closeButton = document.createElement("button");
-    closeButton.textContent = "Close";
+    closeButton.textContent = "x";
     closeButton.className = "close-button";
     closeButton.onclick = () => {
       document.body.removeChild(overlay);
@@ -292,12 +292,12 @@ function DownloadSection() {
                     className="size-14"
                   />
                 </button>
-                <span className="text-xs mt-1">See more</span>
+                <span className="text-xs mt-1">{t("seemore")}</span>
               </div>
             </div>
           </p>
           <div className="form w-full m-auto box-shadow md:w-5/6" id="">
-            <div className="w-5/6 m-auto flex flex-col lg:flex-row">
+            <div className="m-auto flex flex-col lg:flex-row">
               <div className="inline-flex flex-col w-full">
                 <Input
                   accept=""
@@ -308,12 +308,12 @@ function DownloadSection() {
                   className="input h-16 falsefalse border-gray-300 border rounded-xl p-3"
                   id=""
                   onPressEnter={handleDownloadByLink}
-                  placeholder="Paste link here..."
+                  placeholder={t("pasteLinkHere")}
                   min="0"
                   suffix={
                     <Tooltip message={t("paste")}>
                       <FaRegPaste
-                        className="text-2xl text-secondary-500"
+                        className="text-2xl text-secondary-500 text-[#525252]"
                         onClick={handlePasteClick}
                       />
                     </Tooltip>
@@ -329,7 +329,7 @@ function DownloadSection() {
                 ) : (
                   <>
                     
-                    <span>{t("Download")}</span>
+                    <span>{t("download")}</span>
                     <img
                       src="/images/icons8-download.svg"
                       alt="Download"

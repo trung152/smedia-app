@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Typewriter } from "nextjs-simple-typewriter";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getSocialJob, PostSocialJob } from "@/service/api";
 import { useSocialAutoLink } from "@/context/SocialAutoLinkContext";
@@ -80,6 +79,7 @@ function DownloadSection() {
     }
   }, [dataMedia]);
 
+  console.log("render n lân");
   const mutateSocialAutoLink = useMutation({
     mutationFn: (data: any) => PostSocialJob(data),
     onMutate: () => {},
@@ -202,12 +202,18 @@ function DownloadSection() {
     }
   };
 
+  const handleKeyDown = (e : any) => {
+    if (e.key === "Enter") {
+      handleDownloadByLink();
+    }
+  };
+
   return (
     <div>
       <style></style>
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
-          <p className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
+          <div className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
             <div className="grid grid-cols-5 gap-4">
               <div className="flex flex-col items-center">
                 <img
@@ -295,30 +301,28 @@ function DownloadSection() {
                 <span className="text-xs mt-1">{t("seemore")}</span>
               </div>
             </div>
-          </p>
+          </div>
           <div className="form w-full m-auto box-shadow md:w-5/6" id="">
             <div className="m-auto flex flex-col lg:flex-row">
               <div className="inline-flex flex-col w-full">
-                <Input
-                  accept=""
-                  type="text"
-                  name="url"
-                  value={urlInput}
-                  onChange={(e) => setUrlInput(e.target.value)}
-                  className="input h-16 falsefalse border-gray-300 border rounded-xl p-3"
-                  id=""
-                  onPressEnter={handleDownloadByLink}
-                  placeholder={t("pasteLinkHere")}
-                  min="0"
-                  suffix={
-                    <Tooltip message={t("paste")}>
-                      <FaRegPaste
-                        className="text-2xl text-secondary-500 text-[#525252]"
-                        onClick={handlePasteClick}
-                      />
-                    </Tooltip>
-                  }
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    name="url"
+                    value={urlInput}
+                    onChange={(e) => setUrlInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    className="input w-full h-16 border-gray-300 border rounded-xl p-3 pr-10" // Add padding to the right to make room for the suffix
+                    placeholder={t("pasteLinkHere")}
+                    min="0"
+                  />
+                  <div
+                    className="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer"
+                    onClick={handlePasteClick}
+                  >
+                    <FaRegPaste className="text-2xl text-secondary-500 text-[#525252]" />
+                  </div>
+                </div>
               </div>
               <button
                 onClick={handleDownloadByLink}
@@ -328,7 +332,6 @@ function DownloadSection() {
                   <ImSpinner9 className="animate-spin text-white size-8" />
                 ) : (
                   <>
-                    
                     <span>{t("download")}</span>
                     <img
                       src="/images/icons8-download.svg"

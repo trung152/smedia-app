@@ -124,24 +124,25 @@ function DownloadSection() {
 
     const modal = document.createElement("div");
     modal.className = "modal";
-
+    modal.style.marginLeft="20px";
+    modal.style.marginRight="20px";
     const newIcons = [
-      { src: "/images/icons8-vimeo.svg", alt: "Vimeo" },
-      { src: "/images/icons8-reddit.svg", alt: "Reddit" },
-      { src: "/images/icons8-weibo.svg", alt: "Weibo" },
-      { src: "/images/icons8-soundcloud.svg", alt: "SoundCloud" },
+      { src: "/images/icons8-vimeo.svg", alt: "Vim" },
+      { src: "/images/icons8-reddit.svg", alt: "Red" },
+      { src: "/images/icons8-weibo.svg", alt: "Weib" },
+      { src: "/images/icons8-soundcloud.svg", alt: "SoundC" },
       { src: "/images/icons8-tumblr.svg", alt: "Tumblr" },
       { src: "/images/icons8-imdb.svg", alt: "IMDB" },
-      { src: "/images/icons8-dailymotion.png", alt: "Dailymotion" },
-      { src: "/images/icons8-facebook.svg", alt: "Facebook" },
-      { src: "/images/icons8-tiktok.svg", alt: "TikTok" },
-      { src: "/images/icons8-instagram.svg", alt: "Instagram" },
-      { src: "/images/icons8-linkedin.svg", alt: "LinkedIn" },
-      { src: "/images/icons8-spotify.svg", alt: "Spotify" },
-      { src: "/images/icons8-twitterx.svg", alt: "Twitter" },
-      { src: "/images/icons8-telegram.svg", alt: "Telegram" },
-      { src: "/images/icons8-pinterest.svg", alt: "Pinterest" },
-      { src: "/images/icons8-bilibili.svg", alt: "Bilibili" },
+      { src: "/images/icons8-dailymotion.svg", alt: "Dailymotion" },
+      { src: "/images/icons8-facebook.svg", alt: "FB" },
+      { src: "/images/icons8-tiktok.svg", alt: "Tik" },
+      { src: "/images/icons8-instagram.svg", alt: "Ins" },
+      { src: "/images/icons8-linkedin.svg", alt: "Linked" },
+      { src: "/images/icons8-spotify.svg", alt: "Spot" },
+      { src: "/images/icons8-twitterx.svg", alt: "Twitt" },
+      { src: "/images/icons8-telegram.svg", alt: "Tele" },
+      { src: "/images/icons8-pinterest.svg", alt: "Pintrest" },
+      { src: "/images/icons8-bilibili.svg", alt: "Bili" },
     ];
 
     newIcons.forEach((icon) => {
@@ -162,15 +163,23 @@ function DownloadSection() {
     });
 
     const closeButton = document.createElement("button");
-    closeButton.textContent = "x";
+    closeButton.textContent = "OKAY";
     closeButton.className = "close-button";
     closeButton.onclick = () => {
+      document.body.removeChild(overlay);
+    };
+    const closeModal = () => {
       document.body.removeChild(overlay);
     };
     modal.appendChild(closeButton);
 
     overlay.appendChild(modal);
     document.body.appendChild(overlay);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) {
+        closeModal();
+      }
+    });
   };
 
   const handleDownloadByLink = () => {
@@ -214,14 +223,14 @@ function DownloadSection() {
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <div className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
-            <div className="grid grid-cols-5 gap-4">
+          <div className="grid grid-cols-5 gap-4">
               <div className="flex flex-col items-center">
                 <img
                   src="/images/icons8-facebook.svg"
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Facebook</span>
+                <span className="text-xs mt-1">FB</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -229,7 +238,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Instagram</span>
+                <span className="text-xs mt-1">Insta</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -237,7 +246,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">TikTok</span>
+                <span className="text-xs mt-1">Tik</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -245,7 +254,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">LinkedIn</span>
+                <span className="text-xs mt-1">Linked</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -253,7 +262,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Spotify</span>
+                <span className="text-xs mt-1">Spot</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -261,7 +270,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Twitter</span>
+                <span className="text-xs mt-1">Twitt</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -269,7 +278,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Telegram</span>
+                <span className="text-xs mt-1">Tele</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -277,7 +286,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Pinterest</span>
+                <span className="text-xs mt-1">Pintrest</span>
               </div>
               <div className="flex flex-col items-center">
                 <img
@@ -285,7 +294,7 @@ function DownloadSection() {
                   alt=""
                   className="size-14"
                 />
-                <span className="text-xs mt-1">Bilibili</span>
+                <span className="text-xs mt-1">Bili</span>
               </div>
               <div className="flex flex-col items-center">
                 <button
@@ -298,7 +307,7 @@ function DownloadSection() {
                     className="size-14"
                   />
                 </button>
-                <span className="text-xs mt-1">{t("seemore")}</span>
+                <span className="text-xs mt-1">See more</span>
               </div>
             </div>
           </div>

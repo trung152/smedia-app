@@ -43,6 +43,8 @@ const config = {
         "secondary-200": "#70d4ff",
         "secondary-100": "#ade5ff",
         "secondary-50": "#e0f6ff",
+        "c-red": "#E33738",
+        "c-grey": "#E3E9F2",
       },
       fontSize: {
         normal: "12px",

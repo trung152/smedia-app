@@ -15,7 +15,6 @@ function page() {
   const { download } = useDownloader();
   const [openModalVideo, setOpenModalVideo] = useState(false);
   const [fileSizes, setFileSizes] = useState<{ [key: string]: number }>({});
-  console.log("🚀 ~ page ~ fileSizes:", fileSizes)
   const { socialAutoLinkData: mediaData } = useSocialAutoLink();
   const t = useTranslations();
   const router = useRouter();
@@ -101,9 +100,11 @@ function page() {
   useEffect(() => {
     if (!mediaData || mediaData?.error) {
       router.push(`/`);
-    }else{
+    } else {
       mediaData.medias.forEach(async (media: any) => {
-        const size = await getFileSize(`https://api.zm.io.vn/download/?url=${media.url}`);
+        const size = await getFileSize(
+          `https://api.zm.io.vn/download/?url=${media.url}`
+        );
         setFileSizes((prevSizes) => ({
           ...prevSizes,
           [media.url]: size,
@@ -125,10 +126,14 @@ function page() {
   });
 
   const handleDownload = (item: any) => {
-    const url = item?.url || '';
-    const quality = item?.quality || '';
-    const type = item?.type || '';
-    const filename = generateFileName(mediaData?.title || '', item?.quality || '', item?.extension || '');
+    const url = item?.url || "";
+    const quality = item?.quality || "";
+    const type = item?.type || "";
+    const filename = generateFileName(
+      mediaData?.title || "",
+      item?.quality || "",
+      item?.extension || ""
+    );
     const size = fileSizes[url] || false;
     if (window?.flutter_inappwebview) {
       window.flutter_inappwebview
@@ -139,8 +144,11 @@ function page() {
         });
 
       if (quality) {
-        const checkquality = quality.includes('720') || quality.includes('1080') || quality.includes('hd');
-        if (checkquality && type === 'video') {
+        const checkquality =
+          quality.includes("720") ||
+          quality.includes("1080") ||
+          quality.includes("hd");
+        if (checkquality && type === "video") {
           window.flutter_inappwebview
             .callHandler("downVideo", quality)
             .then(function (response: any) {
@@ -185,10 +193,10 @@ function page() {
     return <div className="h-screen"></div>;
   }
   return (
-    <div className="pb-8 min-h-screen">
+    <div className="py-8 min-h-screen">
       <div className="lg:flex xl:mx-10">
-        <div className="bg-neutral-200 p-4 lg:flex flex-1 gap-4 rounded-lg">
-          <div className=" relative flex justify-center items-center">
+        <div className="shadow-md p-4 lg:flex flex-1 gap-4 rounded-lg">
+          <div className=" relative flex flex-col justify-center items-center">
             <img
               src={`https://api.zm.io.vn/download/?url=${mediaData?.thumbnail}`}
               alt="thumbnail"
@@ -201,7 +209,7 @@ function page() {
             )}
           </div>
           <div className="flex flex-col  pt-8">
-            <p className="font-bold mb-5 lg:text-lg xl:text-xl">
+            <p className="font-bold mb-5 lg:text-lg xl:text-xl line-clamp-2">
               {mediaData?.title}
             </p>
             <p>{mediaData?.author}</p>
@@ -224,19 +232,33 @@ function page() {
             window?.flutter_inappwebview ? (
               <button
                 key={index}
-                className={`btn-primary ${getClassNameByType(media)}`}
+                className={`btn-primary text-black bg-c-grey`}
                 onClick={() => handleDownload(media)}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality} {byteToMb(fileSizes[media?.url]) ?? ''}
+                <div className="flex justify-between items-center w-full mx-4">
+                  <div>
+                    {media.quality} {byteToMb(fileSizes[media?.url]) ?? ""}
+                  </div>
+                  <div>
+                    <MdOutlineFileDownload className="text-xl" />
+                  </div>
+                </div>
               </button>
             ) : (
               <a
                 key={index}
-                className={`btn-primary ${getClassNameByType(media)}`}
+                className={`btn-primary text-black bg-c-grey`}
                 download
                 href={`https://api.zm.io.vn/download/?url=${media?.url}`}
               >
-                <MdOutlineFileDownload className="mr-3" /> {media.quality} {byteToMb(fileSizes[media?.url]) ?? ''}
+                <div className="flex justify-between items-center w-full mx-4">
+                  <div>
+                    {media.quality} {byteToMb(fileSizes[media?.url]) ?? ""}
+                  </div>
+                  <div>
+                    <MdOutlineFileDownload className="text-xl" />
+                  </div>
+                </div>
               </a>
             )
           )}
@@ -249,10 +271,10 @@ function page() {
             </button>
           )} */}
           <button
-            className={`btn-primary bg-black`}
+            className={`btn-primary bg-c-red`}
             onClick={() => router.push(`/`)}
           >
-            {t("otherDownload")}
+            {t("otherDownload")} <MdOutlineFileDownload className="text-xl ml-3" />
           </button>
         </div>
       </div>
@@ -266,26 +288,27 @@ function page() {
               <Image
                 src={`https://api.zm.io.vn/download/?url=${media.url}`}
                 alt="thumbnail"
-                className="object-cover overflow-hidden w-64 h-6w-64 max-h-6w-64 max-w-64 rounded-lg "
+                className="object-cover overflow-hidden w-64 h-64 max-h-64 max-w-64 rounded-lg "
               />
               <div className=" flex justify-center items-center mt-2">
                 {window?.flutter_inappwebview ? (
                   <button
                     key={index}
-                    onClick={() =>
-                    handleDownload(media)}
-                    className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
+                    onClick={() => handleDownload(media)}
+                    className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center items-center"
                   >
-                    <MdOutlineFileDownload /> {byteToMb(fileSizes[media?.url]) ?? ''}
+                    {byteToMb(fileSizes[media?.url]) ?? ""}
+                    <MdOutlineFileDownload className="ml-3 text-xl"/>
                   </button>
                 ) : (
                   <a
                     key={index}
                     href={`https://api.zm.io.vn/download/?url=${media.url}`}
                     download
-                    className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center"
+                    className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center items-center"
                   >
-                    <MdOutlineFileDownload /> {byteToMb(fileSizes[media?.url]) ?? ''}
+                    {byteToMb(fileSizes[media?.url]) ?? ""}
+                    <MdOutlineFileDownload className="ml-3 text-xl"/>
                   </a>
                 )}
               </div>

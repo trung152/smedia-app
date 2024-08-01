@@ -81,7 +81,11 @@ export async function getFileSize(url: string): Promise<any> {
 export function byteToMb(bytes: number) {
   if (bytes) {
     const mb = bytes / (1024 * 1024);
-    return mb?.toFixed(1) ? `(${mb.toFixed(1)} MB)` : "";
+    console.log("🚀 ~ byteToMb ~ mb:", mb);
+    if (mb) {
+      return mb.toFixed(1) ? `(${mb.toFixed(1)} MB)` : "";
+    }
+    return "";
   }
   return "";
 }

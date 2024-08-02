@@ -9,7 +9,12 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import { FaPlay } from "react-icons/fa6";
 import { IoClose } from "react-icons/io5";
 import { useTranslations } from "next-intl";
-import { byteToMb, generateFileName, getFileSize } from "@/lib/utils";
+import {
+  byteToMb,
+  checkQuality,
+  generateFileName,
+  getFileSize,
+} from "@/lib/utils";
 
 function page() {
   const { download } = useDownloader();
@@ -144,11 +149,8 @@ function page() {
         });
 
       if (quality) {
-        const checkquality =
-          quality.includes("720") ||
-          quality.includes("1080") ||
-          quality.includes("hd");
-        if (checkquality && type === "video") {
+        const hasAd = checkQuality(quality);
+        if (hasAd && type === "video") {
           window.flutter_inappwebview
             .callHandler("downVideo", quality)
             .then(function (response: any) {
@@ -237,10 +239,11 @@ function page() {
               >
                 <div className="flex justify-between items-center w-full mx-4">
                   <div>
-                    {media.quality} {byteToMb(fileSizes[media?.url]) ?? ""}
+                    {media.quality} {byteToMb(fileSizes[media?.url]) || ""}
                   </div>
-                  <div>
-                    <MdOutlineFileDownload className="text-xl" />
+                  <div className="flex">
+                    {checkQuality(media?.quality) ? "(Ad)" : ""}
+                    <MdOutlineFileDownload className="text-xl ml-4" />
                   </div>
                 </div>
               </button>
@@ -253,10 +256,11 @@ function page() {
               >
                 <div className="flex justify-between items-center w-full mx-4">
                   <div>
-                    {media.quality} {byteToMb(fileSizes[media?.url]) ?? ""}
+                    {media.quality} {byteToMb(fileSizes[media?.url]) || ""}{" "}
                   </div>
-                  <div>
-                    <MdOutlineFileDownload className="text-xl" />
+                  <div className="flex">
+                    {checkQuality(media?.quality) ? "(Ad)" : ""}
+                    <MdOutlineFileDownload className="text-xl ml-4" />
                   </div>
                 </div>
               </a>
@@ -274,7 +278,8 @@ function page() {
             className={`btn-primary bg-c-red`}
             onClick={() => router.push(`/`)}
           >
-            {t("otherDownload")} <MdOutlineFileDownload className="text-xl ml-3" />
+            {t("otherDownload")}{" "}
+            <MdOutlineFileDownload className="text-xl ml-3" />
           </button>
         </div>
       </div>
@@ -297,8 +302,8 @@ function page() {
                     onClick={() => handleDownload(media)}
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center items-center"
                   >
-                    {byteToMb(fileSizes[media?.url]) ?? ""}
-                    <MdOutlineFileDownload className="ml-3 text-xl"/>
+                    {byteToMb(fileSizes[media?.url]) || ""}
+                    <MdOutlineFileDownload className="ml-3 text-xl" />
                   </button>
                 ) : (
                   <a
@@ -307,8 +312,8 @@ function page() {
                     download
                     className="font-bold bg-gray-300 text-black p-2 rounded w-full flex justify-center items-center"
                   >
-                    {byteToMb(fileSizes[media?.url]) ?? ""}
-                    <MdOutlineFileDownload className="ml-3 text-xl"/>
+                    {byteToMb(fileSizes[media?.url]) || ""}
+                    <MdOutlineFileDownload className="ml-3 text-xl" />
                   </a>
                 )}
               </div>

@@ -102,8 +102,11 @@ function DownloadSection() {
       window.flutter_inappwebview
         .callHandler("onPasteInFlutter", "???")
         .then(function (response: any) {
-          // console.log("Phản hồi từ Flutter: " + response);
-          setUrlInput((prev) => prev + response);
+          if (response != "null") {
+            setUrlInput((prev) => prev + response);
+          }else{
+            toast.error("Clipboard is empty");
+          }
         });
     } else {
       navigator.clipboard
@@ -124,16 +127,16 @@ function DownloadSection() {
 
     const modal = document.createElement("div");
     modal.className = "modal";
-    modal.style.marginLeft="20px";
-    modal.style.marginRight="20px";
+    modal.style.marginLeft = "20px";
+    modal.style.marginRight = "20px";
     const newIcons = [
       { src: "/images/icons8-vimeo.svg", alt: "Vim" },
       { src: "/images/icons8-reddit.svg", alt: "Red" },
       { src: "/images/icons8-weibo.svg", alt: "Weib" },
       { src: "/images/icons8-soundcloud.svg", alt: "SoundC" },
-      { src: "/images/icons8-tumblr.svg", alt: "Tumblr" },
+      { src: "/images/icons8-tumblr.svg", alt: "Tumlr" },
       { src: "/images/icons8-imdb.svg", alt: "IMDB" },
-      { src: "/images/icons8-dailymotion.svg", alt: "Dailymotion" },
+      { src: "/images/icons8-dailymotion.svg", alt: "Dailymo" },
       { src: "/images/icons8-facebook.svg", alt: "FB" },
       { src: "/images/icons8-tiktok.svg", alt: "Tik" },
       { src: "/images/icons8-instagram.svg", alt: "Ins" },
@@ -211,7 +214,7 @@ function DownloadSection() {
     }
   };
 
-  const handleKeyDown = (e : any) => {
+  const handleKeyDown = (e: any) => {
     if (e.key === "Enter") {
       handleDownloadByLink();
     }
@@ -223,7 +226,7 @@ function DownloadSection() {
       <section id="downloader" className="section text-center pt-10 sm:pt-16">
         <div className="container mx-auto px-0 md:self-center mb-8 md:mb-0 text-center">
           <div className="text-2xl lg:text-4xl font-bold text-gray-700 mb-8 md:ml-[-50px]">
-          <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-4">
               <div className="flex flex-col items-center">
                 <img
                   src="/images/icons8-facebook.svg"
@@ -341,11 +344,13 @@ function DownloadSection() {
                   <ImSpinner9 className="animate-spin text-white size-8" />
                 ) : (
                   <>
-                    <span>{t("download")}</span>
+                    <span className="uppercase font-medium">
+                      {t("download")}
+                    </span>
                     <img
                       src="/images/icons8-download.svg"
                       alt="Download"
-                      className="w-5 h-5"
+                      className="w-6 h-6"
                     />
                   </>
                 )}
